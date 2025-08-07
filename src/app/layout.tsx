@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import React from "react";
+import Footer from "./Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,9 +27,26 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white min-h-screen flex flex-col`}
       >
-        {children}
+        <header className="fixed top-0 left-0 w-full z-50 bg-cyan-600 text-white shadow-md">
+          <nav className="container mx-auto flex flex-wrap items-center justify-between py-4 px-4">
+            <div className="text-2xl font-bold tracking-tight">СНТ "Речицы"</div>
+            <ul className="flex flex-wrap gap-4 text-lg font-medium">
+              <li><a href="/" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">Главная</a></li>
+              <li><a href="/informaciya" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">Информация</a></li>
+              <li><a href="/dokumenty" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">Документы</a></li>
+              <li><a href="/ustav" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">Устав</a></li>
+              <li><a href="/foto" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">Фото</a></li>
+              <li><a href="/kak-dobratsya" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">Как добраться</a></li>
+              <li><a href="/kontakty" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">Контакты</a></li>
+            </ul>
+          </nav>
+        </header>
+        <main className="container mx-auto px-4 py-8 flex-1 pb-32 pt-28">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );
