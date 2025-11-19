@@ -1,4 +1,12 @@
-"use client";
+export default function Foto() {
+  return (
+    <main>
+      <h1>adminka</h1>
+    </main>
+  );
+}
+
+// "use client";
 // import { useState, useEffect } from "react";
 
 // const ADMIN_LOGIN = "admin";
