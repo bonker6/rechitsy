@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { news, newsItem } from "../api/main/route";
+import { newsItem } from '../../api/main/route';
 
 const ADMIN_LOGIN = "admin";
 const ADMIN_PASSWORD = "1234";

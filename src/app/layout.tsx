@@ -1,4 +1,6 @@
+// ./src/app/layout.tsx
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import React from "react";
@@ -31,23 +33,56 @@ export default function RootLayout({
       >
         <header className="fixed top-0 left-0 w-full z-50 bg-cyan-600 text-white shadow-md">
           <nav className="container mx-auto flex flex-wrap items-center justify-between py-4 px-4">
-            <div className="text-2xl font-bold tracking-tight">СНТ "Речицы"</div>
+            {/* Экранируем кавычки внутри строки через HTML сущности или используем обычные кавычки без конфликтов */}
+            <div className="text-2xl font-bold tracking-tight">СНТ &quot;Речицы&quot;</div>
+
             <ul className="flex flex-wrap gap-4 text-lg font-medium">
-              <li><a href="/" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">Главная</a></li>
-              <li><a href="/informaciya" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">Информация</a></li>
-              <li><a href="/dokumenty" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">Документы</a></li>
-              <li><a href="/ustav" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">Устав</a></li>
-              <li><a href="/foto" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">Фото</a></li>
-              <li><a href="/kak-dobratsya" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">Как добраться</a></li>
-              <li><a href="/kontakty" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">Контакты</a></li>
+              <li>
+                <Link href="/" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">
+                  Главная
+                </Link>
+              </li>
+              <li>
+                <Link href="/informaciya" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">
+                  Информация
+                </Link>
+              </li>
+              <li>
+                <Link href="/dokumenty" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">
+                  Документы
+                </Link>
+              </li>
+              <li>
+                <Link href="/ustav" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">
+                  Устав
+                </Link>
+              </li>
+              <li>
+                <Link href="/foto" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">
+                  Фото
+                </Link>
+              </li>
+              <li>
+                <Link href="/kak-dobratsya" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">
+                  Как добраться
+                </Link>
+              </li>
+              <li>
+                <Link href="/kontakty" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">
+                  Контакты
+                </Link>
+              </li>
             </ul>
           </nav>
         </header>
+
         <main className="container mx-auto px-4 py-8 flex-1 pb-32 pt-28">
           {children}
         </main>
+
         <Footer />
       </body>
     </html>
   );
 }
+

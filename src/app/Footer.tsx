@@ -44,7 +44,7 @@ export default function Footer() {
             </svg>
           </a>
           <a
-            href="https://t.me/sntrechitsy"
+            href="https://vk.com/konakovo5"
             target="_blank"
             rel="noopener noreferrer"
             className="mx-4 group"

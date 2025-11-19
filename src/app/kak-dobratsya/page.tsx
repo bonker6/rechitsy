@@ -1,18 +1,78 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-const DESTINATION = [56.728767, 36.827567]; // СНТ Речицы
+const DESTINATION: [number, number] = [56.728767, 36.827567];
+
+// Минимальные безопасные типы для используемых частей Yandex Maps
+type YMapOptions = {
+  center?: [number, number];
+  zoom?: number;
+  controls?: string[];
+  [k: string]: unknown;
+};
+
+type PlacemarkProps = {
+  balloonContent?: string;
+  [k: string]: unknown;
+};
+
+type PlacemarkOptions = {
+  preset?: string;
+  [k: string]: unknown;
+};
+
+interface YMaps {
+  ready: (cb: () => void) => void;
+  Map: new (container: HTMLElement, opts: YMapOptions) => YMapInstance;
+  Placemark: new (coords: [number, number], props?: PlacemarkProps, opts?: PlacemarkOptions) => PlacemarkInstance;
+}
+
+interface PlacemarkInstance {
+  // оставляем минимально необходимые поля — подробности не нужны
+  getBounds?: () => [number, number][];
+}
+
+interface GeoObjectsCollection {
+  add: (obj: PlacemarkInstance) => void;
+}
+
+interface RoutePanelState {
+  set: (obj: { [k: string]: unknown }) => void;
+}
+
+interface RoutePanel {
+  state: RoutePanelState;
+}
+
+interface RoutePanelControl {
+  routePanel: RoutePanel;
+}
+
+interface ControlsCollection {
+  get: (name: string) => RoutePanelControl;
+}
+
+interface YMapInstance {
+  geoObjects: GeoObjectsCollection;
+  controls: ControlsCollection;
+  destroy?: () => void;
+}
+
+declare global {
+  interface Window {
+    ymaps?: YMaps;
+  }
+}
 
 export default function KakDobratsya() {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstance = useRef<any>(null);
-  const routePanelRef = useRef<any>(null);
-  const [from, setFrom] = useState("");
-  const [input, setInput] = useState("");
-  const [ymapsLoaded, setYmapsLoaded] = useState(false);
-  const [error, setError] = useState("");
+  const mapRef = useRef<HTMLDivElement | null>(null);
+  const mapInstance = useRef<YMapInstance | null>(null);
+  const routePanelRef = useRef<RoutePanelControl | null>(null);
+  const [from, setFrom] = useState<string>("");
+  const [input, setInput] = useState<string>("");
+  const [ymapsLoaded, setYmapsLoaded] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
-  // Загрузка скрипта Яндекс.Карт
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.ymaps) {
@@ -22,52 +82,60 @@ export default function KakDobratsya() {
     const script = document.createElement("script");
     script.src =
       "https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=1d251639-e01e-4a4a-a3ec-652334aa5f86";
+    script.async = true;
     script.onload = () => setYmapsLoaded(true);
     document.body.appendChild(script);
+    return () => {
+      // не удаляем script принудительно
+    };
   }, []);
 
-  // Инициализация карты
   useEffect(() => {
     if (!ymapsLoaded || !mapRef.current || mapInstance.current) return;
-    window.ymaps.ready(() => {
-      mapInstance.current = new window.ymaps.Map(mapRef.current, {
+    window.ymaps!.ready(() => {
+      const map = new window.ymaps!.Map(mapRef.current as HTMLElement, {
         center: DESTINATION,
         zoom: 12,
         controls: ["zoomControl", "routePanelControl"],
       });
-      // Маркер СНТ
-      mapInstance.current.geoObjects.add(
-        new window.ymaps.Placemark(DESTINATION, {
-          balloonContent: "СНТ Речицы",
-        }, {
-          preset: "islands#redDotIcon"
-        })
+      map.geoObjects.add(
+        new window.ymaps!.Placemark(
+          DESTINATION,
+          { balloonContent: "СНТ Речицы" },
+          { preset: "islands#redDotIcon" }
+        )
       );
-      // Панель маршрута
-      routePanelRef.current = mapInstance.current.controls.get("routePanelControl");
-      routePanelRef.current.routePanel.state.set({
+      const routePanel = map.controls.get("routePanelControl");
+      routePanel.routePanel.state.set({
         type: "auto",
         fromEnabled: true,
         toEnabled: false,
         to: DESTINATION,
       });
+      mapInstance.current = map;
+      routePanelRef.current = routePanel;
     });
-    // eslint-disable-next-line
+    return () => {
+      if (mapInstance.current && typeof mapInstance.current.destroy === "function") {
+        mapInstance.current.destroy();
+        mapInstance.current = null;
+      }
+    };
   }, [ymapsLoaded]);
 
-  // Обновление маршрута без пересоздания карты
   useEffect(() => {
     if (routePanelRef.current) {
       routePanelRef.current.routePanel.state.set({ from });
     }
   }, [from]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!input.trim()) {
       setError("Введите адрес отправления");
       return;
     }
+    setError("");
     setFrom(input.trim());
   };
 
@@ -92,7 +160,7 @@ export default function KakDobratsya() {
       {error && <div className="text-red-600 mb-4">{error}</div>}
       <div ref={mapRef} className="w-full h-[480px] rounded-xl shadow bg-cyan-50" />
       <div className="mt-4 text-gray-700 text-sm">
-        <b>Адрес СНТ «Речицы»:</b> Тверская область, Конаковский район, деревня Речицы<br/>
+        <b>Адрес СНТ «Речицы»:</b> Тверская область, Конаковский район, деревня Речицы<br />
         Координаты: 56.728767, 36.827567
       </div>
     </main>
