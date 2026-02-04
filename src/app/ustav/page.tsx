@@ -4,7 +4,7 @@ export default function Ustav() {
       <h1 className="text-3xl font-bold mb-8 text-cyan-700">Устав СНТ «Речицы»</h1>
       <section className="mb-8 bg-cyan-50 rounded-xl shadow p-6">
         <h2 className="text-2xl font-semibold text-cyan-800 mb-4">Содержание</h2>
-        <ol className="list-decimal pl-6 space-y-1 text-cyan-900">
+        <ol className="list-decimal pl-6 space-y-1 text-cyan-300">
           <li><a href="#1" className="hover:underline text-cyan-700">Общие положения</a></li>
           <li><a href="#2" className="hover:underline text-cyan-700">Предмет и цели деятельности</a></li>
           <li><a href="#3" className="hover:underline text-cyan-700">Устав. Порядок внесения изменений</a></li>

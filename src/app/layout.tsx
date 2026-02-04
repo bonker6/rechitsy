@@ -1,10 +1,10 @@
 // ./src/app/layout.tsx
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import React from "react";
 import Footer from "./Footer";
+import Header from "./Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,54 +29,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white min-h-screen flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <header className="fixed top-0 left-0 w-full z-50 bg-cyan-600 text-white shadow-md">
-          <nav className="container mx-auto flex flex-wrap items-center justify-between py-4 px-4">
-            {/* Экранируем кавычки внутри строки через HTML сущности или используем обычные кавычки без конфликтов */}
-            <div className="text-2xl font-bold tracking-tight">СНТ &quot;Речицы&quot;</div>
+        <Header />
 
-            <ul className="flex flex-wrap gap-4 text-lg font-medium">
-              <li>
-                <Link href="/" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">
-                  Главная
-                </Link>
-              </li>
-              <li>
-                <Link href="/informaciya" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">
-                  Информация
-                </Link>
-              </li>
-              <li>
-                <Link href="/dokumenty" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">
-                  Документы
-                </Link>
-              </li>
-              <li>
-                <Link href="/ustav" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">
-                  Устав
-                </Link>
-              </li>
-              <li>
-                <Link href="/foto" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">
-                  Фото
-                </Link>
-              </li>
-              <li>
-                <Link href="/kak-dobratsya" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">
-                  Как добраться
-                </Link>
-              </li>
-              <li>
-                <Link href="/kontakty" className="hover:text-cyan-200 transition-colors transition-transform duration-200 ease-in-out transform hover:scale-110 hover:bg-cyan-700 px-3 py-1 rounded-xl">
-                  Контакты
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </header>
-
-        <main className="container mx-auto px-4 py-8 flex-1 pb-32 pt-28">
+        <main className="container mx-auto px-4 py-4 md:py-8 flex-1 pb-32 pt-20 md:pt-28">
           {children}
         </main>
 

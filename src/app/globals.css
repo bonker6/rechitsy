@@ -1,38 +1,183 @@
-
 @import "tailwindcss";
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --header-bg: #0891b2;
+  --header-text: #ffffff;
+  --footer-bg: #ffffff;
+  --footer-border: #e0f2fe;
+  --footer-text: #0891b2;
+  --mobile-menu-bg: #0e7490;
+  --mobile-menu-hover: #155e75;
+  --content-bg: #ffffff;
+  --content-bg-alt: #f0fdfa;
+  --content-border: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0f172a;
+    --foreground: #f1f5f9;
+    --header-bg: #0c4a6e;
+    --header-text: #ffffff;
+    --footer-bg: #0f172a;
+    --footer-border: #1e293b;
+    --footer-text: #22d3ee;
+    --mobile-menu-bg: #0c4a6e;
+    --mobile-menu-hover: #075985;
+    --content-bg: #1e293b;
+    --content-bg-alt: #334155;
+    --content-border: #475569;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
   }
 }
 
 body {
-  background: var(--background);
+  /* background-image: url(../../public/background.png); */
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  /* background-repeat: no-repeat;
+  background-position: center top;
+  background-attachment: scroll;
+  background-size: auto; */
 }
 
-html {
-  background-image: url(../../public/background.png);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-attachment: fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+/* Dark theme adjustments */
+@media (prefers-color-scheme: dark) {
+  html {
+    background-image: none;
+    background: var(--background);
+  }
+  
+  /* Content area styles */
+  .bg-white {
+    background-color: var(--content-bg) !important;
+  }
+  
+  .bg-cyan-50 {
+    background-color: var(--content-bg-alt) !important;
+  }
+  
+  /* Text colors */
+  .text-gray-700 {
+    color: var(--text-secondary) !important;
+  }
+  
+  .text-gray-800 {
+    color: var(--text-primary) !important;
+  }
+  
+  .text-cyan-700 {
+    color: var(--footer-text) !important;
+  }
+  
+  .text-cyan-800 {
+    color: var(--footer-text) !important;
+  }
+  
+  .text-cyan-600 {
+    color: #67e8f9 !important;
+  }
+  
+  /* Border colors */
+  .border-cyan-300 {
+    border-color: var(--content-border) !important;
+  }
+  
+  .border-cyan-100 {
+    border-color: var(--content-border) !important;
+  }
+  
+  .border-l-4.border-cyan-400 {
+    border-left-color: var(--footer-text) !important;
+  }
+  
+  /* Focus and hover states */
+  .focus\:ring-cyan-400:focus {
+    --tw-ring-color: #67e8f9 !important;
+  }
+  
+  .hover\:bg-cyan-700:hover {
+    background-color: var(--mobile-menu-hover) !important;
+  }
+  
+  .hover\:text-cyan-600:hover {
+    color: #67e8f9 !important;
+  }
+  
+  /* Ensure text readability on dark background */
+  .fill-cyan-600 {
+    fill: var(--footer-text) !important;
+  }
+  
+  .group:hover .fill-cyan-600 {
+    fill: #67e8f9 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav li {
+    margin-bottom: 10px;
+  }
+
+  .menu-open {
+    display: block;
+  }
+}
+
+/* Custom dark theme classes */
+.dark-header {
+  background-color: var(--header-bg);
+  color: var(--header-text);
+}
+
+.dark-footer {
+  background-color: var(--footer-bg);
+  border-color: var(--footer-border);
+}
+
+.dark-mobile-menu {
+  background-color: var(--mobile-menu-bg);
+}
+
+.dark-mobile-menu-hover:hover {
+  background-color: var(--mobile-menu-hover);
+}
+
+/* Content area classes */
+.content-container {
+  background-color: var(--content-bg);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.content-container-alt {
+  background-color: var(--content-bg-alt);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.content-text-secondary {
+  color: var(--text-secondary);
+}
+
+.content-text-muted {
+  color: var(--text-muted);
 }

@@ -19,6 +19,8 @@ export default function Footer() {
                 ? "Преим. ясно"
                 : data.current_weather.weathercode === 2
                 ? "Облачно"
+                : data.current_weather.weathercode === 3
+                ? "Пасмурно"
                 : "Погода",
           });
         }
@@ -26,36 +28,38 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="fixed bottom-0 left-0 w-full z-50 bg-white border-t border-cyan-200 shadow-inner">
+    <footer className="fixed bottom-0 left-0 w-full z-50 dark-footer border-t shadow-inner">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between py-4 px-4">
         <div className="flex-1 flex justify-center">
           <a
             href="https://t.me/sntrechitsy"
             target="_blank"
             rel="noopener noreferrer"
-            className="mx-4 group"
+            className="mx-4 group flex md:flex-row"
             aria-label="Telegram"
           >
-            <svg
-              className="w-8 h-8 fill-cyan-600 group-hover:fill-cyan-400 transition-all duration-200"
-              viewBox="0 0 32 32"
-            >
-              <path d="M29.919 6.112c-.336-.288-.8-.368-1.216-.208l-26 10c-.432.168-.72.6-.704 1.064.016.456.32.856.76.984l6.68 1.96 2.56 8.08c.136.432.528.728.976.728h.016c.456-.008.848-.32.968-.76l2.36-8.52 7.44 6.16c.192.16.432.248.68.248.128 0 .256-.024.376-.072.352-.144.6-.472.624-.848l2-18c.048-.456-.16-.904-.56-1.128zM12.44 25.08l-2.08-6.56 4.56 1.336-2.48 5.224zm3.08-7.44l-7.36-2.16 20.08-7.72-12.72 9.88zm8.56 6.16l-6.64-5.48 8.08-6.28-1.44 11.76z" />
+            <svg className="h-6 w-6 text-[#24A1DE] hover:text-sky-600 transition-colors" 
+                viewBox="0 0 24 24" 
+                fill="currentColor" 
+                xmlns="http://www.w3.org">
+                <path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.18l-1.91 9.02c-.14.64-.52.8-.1.45l-2.91-2.15-1.4 1.35c-.15.15-.28.27-.58.27l.21-2.97 5.41-4.89c.23-.21-.05-.33-.36-.12l-6.7 4.22-2.87-.9c-.62-.2-.63-.62.13-.92l11.23-4.33c.52-.19.97.12.79.92z"/>
             </svg>
+            <h3>Telegram</h3>
           </a>
           <a
             href="https://vk.com/konakovo5"
             target="_blank"
             rel="noopener noreferrer"
-            className="mx-4 group"
+            className="mx-4 group flex md:flex-row"
             aria-label="ВКонтакте"
           >
-            <svg
-              className="w-8 h-8 fill-cyan-600 group-hover:fill-cyan-400 transition-all duration-200"
-              viewBox="0 0 32 32"
-            >
-              <path d="M16.001 23.999h-1.6c-4.8 0-7.2-3.2-7.2-9.6v-1.6c0-1.6.8-2.4 2.4-2.4h2.4c.8 0 1.2.4 1.2 1.2v2.4c0 .8-.4 1.2-1.2 1.2h-1.2c.8 2.4 2.4 3.6 4.8 3.6s4-1.2 4.8-3.6h-1.2c-.8 0-1.2-.4-1.2-1.2v-2.4c0-.8.4-1.2 1.2-1.2h2.4c1.6 0 2.4.8 2.4 2.4v1.6c0 6.4-2.4 9.6-7.2 9.6z" />
+            <svg className="w-6 h-6 text-[#0077FF] hover:opacity-80 transition-opacity" 
+                viewBox="0 0 24 24" 
+                fill="currentColor" 
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M23.45 5.94c.35-1.16 0-2.01-1.66-2.01h-5.48c-1.4 0-2.05.74-2.4 1.57 0 0-2.79 6.81-6.75 11.23-.31.31-.45.41-.62.41-.09 0-.21-.1-.21-.4V5.93c0-1.4-.4-2.01-1.57-2.01H1.14C.26 3.92 0 4.58 0 5.25c0 1.33 1.98 1.63 2.19 5.34V18.1c0 1.83-.34 2.1-.98 2.1h-1.6c-.63 0-.84.28-.84.71 0 .6.82 2.5 3.91 2.5 3.2 0 5.93-1.66 5.93-1.66s3.04-1.63 4.39-3.26c.46-.57.65-.82.88-.82.16 0 .3.1.58.4 0 0 2.58 3.6 5.16 5.12 1.93 1.13 3.4.88 3.92.88h5.48c1.55 0 2.33-.78 1.87-2.31-.49-1.53-2.25-3.76-4.59-6.41-.33-.37-.47-.53-.13-1.01.03-.04 3.12-4.5 3.43-5.9z"/>
             </svg>
+            <h3>ВКонтакте</h3>
           </a>
         </div>
         <div className="flex-1 flex justify-end text-right items-center mt-4 md:mt-0">
