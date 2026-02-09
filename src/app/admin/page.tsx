@@ -9,19 +9,12 @@
 "use client";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import type { newsItem } from "@/types/newsType";
 
 const ADMIN_LOGIN = "admin";
 const ADMIN_PASSWORD = "1234";
 
-const API_URL = "http://localhost:9090";
-
-type newsItem = {
-  id: number;
-  title: string;
-  date: string;
-  description: string;
-};
-
+const API_URL = "http://localhost:8080/news/";
 
 export default function AdminPage() {
   const [authorized, setAuthorized] = useState(false);

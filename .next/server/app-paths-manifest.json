@@ -1,7 +1,16 @@
 {
-  "/page": "app/page.js",
-  "/ustav/page": "app/ustav/page.js",
-  "/informaciya/page": "app/informaciya/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/admin/page": "app/admin/page.js",
-  "/kak-dobratsya/page": "app/kak-dobratsya/page.js"
+  "/dokumenty/electro_low/page": "app/dokumenty/electro_low/page.js",
+  "/dokumenty/firerule/page": "app/dokumenty/firerule/page.js",
+  "/dokumenty/estimate/page": "app/dokumenty/estimate/page.js",
+  "/dokumenty/meetingprotocol10112023/page": "app/dokumenty/meetingprotocol10112023/page.js",
+  "/dokumenty/page": "app/dokumenty/page.js",
+  "/foto/page": "app/foto/page.js",
+  "/dokumenty/snow_cleaning_schedule/page": "app/dokumenty/snow_cleaning_schedule/page.js",
+  "/informaciya/page": "app/informaciya/page.js",
+  "/kak-dobratsya/page": "app/kak-dobratsya/page.js",
+  "/kontakty/page": "app/kontakty/page.js",
+  "/page": "app/page.js",
+  "/ustav/page": "app/ustav/page.js"
 }

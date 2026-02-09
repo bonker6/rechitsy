@@ -17,7 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     // Запрашиваем маршрут API без .ts
-    fetch("http://localhost:9090", { method: "GET" })
+    fetch("http://localhost:8080/news/", { method: "GET" })
       .then((res) => {
         if (!res.ok) throw new Error("Ошибка загрузки");
         return res.json() as Promise<NewsItem[]>;

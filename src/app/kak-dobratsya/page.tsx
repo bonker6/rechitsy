@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-
 const DESTINATION: [number, number] = [56.728767, 36.827567];
 
 // Минимальные безопасные типы для используемых частей Yandex Maps
