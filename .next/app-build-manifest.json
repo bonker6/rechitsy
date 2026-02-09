@@ -1,112 +1,45 @@
 {
   "pages": {
-    "/_not-found/page": [
-      "static/chunks/webpack-6325d97008443c31.js",
-      "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
-      "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-502699c6f7b222e6.js",
-      "static/chunks/app/_not-found/page-1f43c9216fa97ae4.js"
-    ],
     "/layout": [
-      "static/chunks/webpack-6325d97008443c31.js",
-      "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
-      "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-502699c6f7b222e6.js",
-      "static/css/935fd03a714b3854.css",
-      "static/chunks/694-adb27d79ae31680a.js",
-      "static/chunks/app/layout-6bd36989ce2b1274.js"
-    ],
-    "/admin/page": [
-      "static/chunks/webpack-6325d97008443c31.js",
-      "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
-      "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-502699c6f7b222e6.js",
-      "static/chunks/464-505690b27289c137.js",
-      "static/chunks/app/admin/page-36ef121db2ef591b.js"
-    ],
-    "/dokumenty/electro_low/page": [
-      "static/chunks/webpack-6325d97008443c31.js",
-      "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
-      "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-502699c6f7b222e6.js",
-      "static/chunks/app/dokumenty/electro_low/page-ff1e1d1938bf1698.js"
-    ],
-    "/dokumenty/firerule/page": [
-      "static/chunks/webpack-6325d97008443c31.js",
-      "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
-      "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-502699c6f7b222e6.js",
-      "static/chunks/app/dokumenty/firerule/page-ff1e1d1938bf1698.js"
-    ],
-    "/dokumenty/estimate/page": [
-      "static/chunks/webpack-6325d97008443c31.js",
-      "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
-      "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-502699c6f7b222e6.js",
-      "static/chunks/app/dokumenty/estimate/page-ff1e1d1938bf1698.js"
-    ],
-    "/dokumenty/meetingprotocol10112023/page": [
-      "static/chunks/webpack-6325d97008443c31.js",
-      "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
-      "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-502699c6f7b222e6.js",
-      "static/chunks/app/dokumenty/meetingprotocol10112023/page-ff1e1d1938bf1698.js"
-    ],
-    "/dokumenty/page": [
-      "static/chunks/webpack-6325d97008443c31.js",
-      "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
-      "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-502699c6f7b222e6.js",
-      "static/chunks/app/dokumenty/page-641d54e7ee71dc1b.js"
-    ],
-    "/foto/page": [
-      "static/chunks/webpack-6325d97008443c31.js",
-      "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
-      "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-502699c6f7b222e6.js",
-      "static/chunks/app/foto/page-ff1e1d1938bf1698.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
     ],
     "/dokumenty/snow_cleaning_schedule/page": [
-      "static/chunks/webpack-6325d97008443c31.js",
-      "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
-      "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-502699c6f7b222e6.js",
-      "static/chunks/app/dokumenty/snow_cleaning_schedule/page-ff1e1d1938bf1698.js"
-    ],
-    "/informaciya/page": [
-      "static/chunks/webpack-6325d97008443c31.js",
-      "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
-      "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-502699c6f7b222e6.js",
-      "static/chunks/app/informaciya/page-ff1e1d1938bf1698.js"
-    ],
-    "/kak-dobratsya/page": [
-      "static/chunks/webpack-6325d97008443c31.js",
-      "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
-      "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-502699c6f7b222e6.js",
-      "static/chunks/app/kak-dobratsya/page-2227f05658123cea.js"
-    ],
-    "/kontakty/page": [
-      "static/chunks/webpack-6325d97008443c31.js",
-      "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
-      "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-502699c6f7b222e6.js",
-      "static/chunks/app/kontakty/page-ff1e1d1938bf1698.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dokumenty/snow_cleaning_schedule/page.js"
     ],
     "/page": [
-      "static/chunks/webpack-6325d97008443c31.js",
-      "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
-      "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-502699c6f7b222e6.js",
-      "static/chunks/app/page-ad2679f4b462fc81.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
     ],
-    "/ustav/page": [
-      "static/chunks/webpack-6325d97008443c31.js",
-      "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
-      "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-502699c6f7b222e6.js",
-      "static/chunks/app/ustav/page-ff1e1d1938bf1698.js"
+    "/informaciya/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/informaciya/page.js"
+    ],
+    "/dokumenty/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dokumenty/page.js"
+    ],
+    "/dokumenty/firerule/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dokumenty/firerule/page.js"
+    ],
+    "/dokumenty/meetingprotocol10112023/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dokumenty/meetingprotocol10112023/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }
