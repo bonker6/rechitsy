@@ -7,7 +7,7 @@ export default function Dokumenty() {
 
   return (
     <main>
-      <h1 className="text-3xl font-bold mb-8 text-cyan-700">Устав СНТ «Речицы»</h1>
+      <h1 className="text-3xl font-bold mb-8 text-cyan-700">Документы</h1>
       <section className="mb-8 bg-cyan-50 rounded-xl shadow p-6">
         <h2 className="text-2xl font-semibold text-cyan-800 mb-4">Содержание</h2>
         <ol className="list-decimal pl-6 space-y-1 text-cyan-300">
