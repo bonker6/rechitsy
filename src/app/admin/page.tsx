@@ -1,20 +1,7 @@
-// export default function Foto() {
-//   return (
-//     <main>
-//       <h1>adminka</h1>
-//     </main>
-//   );
-// }
-
 "use client";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import type { newsItem } from "@/types/newsType";
-
-const ADMIN_LOGIN = "admin";
-const ADMIN_PASSWORD = "1234";
-
-const API_URL = "http://localhost:8080/news/";
 
 export default function AdminPage() {
   const [authorized, setAuthorized] = useState(false);
@@ -32,15 +19,18 @@ export default function AdminPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (login === ADMIN_LOGIN && password === ADMIN_PASSWORD) {
-      setAuthorized(true);
-      setError("");
-      if (typeof window !== "undefined") {
-        localStorage.setItem("admin_auth", "1");
-      }
-    } else {
-      setError("Неверный логин или пароль");
-    }
+    axios
+      .post(
+        "http://localhost:8080/auth/",
+        { login, password }
+      )
+      .then(
+       () => (
+          setAuthorized(true),
+          setError("")
+        )
+      )
+      .catch(() => setError("Неверный логин или пароль"));
   };
 
   const handleLogout = () => {
@@ -59,7 +49,7 @@ export default function AdminPage() {
 
   // Загрузка новостей из БД при инициализации
   useEffect(() => {
-    fetch(API_URL, { method: "GET" })
+    fetch("http://localhost:8080/news/", { method: "GET" })
       .then((res) => {
         if (!res.ok) throw new Error("Ошибка загрузки");
         return res.json();
@@ -77,11 +67,11 @@ export default function AdminPage() {
     e.preventDefault();
     if (!form.title || !form.date || !form.description) return;
     if (editId) {
-      axios.put(API_URL, { ...form, id: editId });
+      axios.put("http://localhost:8080/news/", { ...form, id: editId });
       setNews(news.map(n => n.id === editId ? { ...n, ...form } : n));
       setEditId(null);
     } else { // отпправка формы новостей в БД
-      axios.post(API_URL,
+      axios.post("http://localhost:8080/news/",
         { ...form}
       )
       setNews([
@@ -104,7 +94,7 @@ export default function AdminPage() {
   const handleDelete = (id: number) => {
     setNews(news.filter(n => n.id !== id));
     if (editId === id) {
-      axios.delete(API_URL, {
+      axios.delete("http://localhost:8080/news/", {
         data: { id }
       });
       setEditId(null);

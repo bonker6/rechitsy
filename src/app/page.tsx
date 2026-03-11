@@ -5,7 +5,7 @@ export interface NewsItem {
   id: string;
   title: string;
   description: string;
-  date: string; // ISO date (YYYY-MM-DD) или формат, который вы используете
+  date: string; 
 }
 
 export default function Home() {
