@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 14, "column": 0}, "map": {"version":3,"sources":["file:///D:/prjct/rechitsy/src/app/foto/page.tsx"],"sourcesContent":["export default function Foto() {\r\n  return (\r\n    <main>\r\n      <h1>Фото</h1>\r\n      <p>Здесь размещены фотографии.</p>\r\n    </main>\r\n  );\r\n}\r\n// 5"],"names":[],"mappings":";;;;;;AAAe,SAAS;IACtB,qBACE,8OAAC;;0BACC,8OAAC;0BAAG;;;;;;0BACJ,8OAAC;0BAAE;;;;;;;;;;;;AAGT,EACA,IAAI"}}]
+}
