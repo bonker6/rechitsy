@@ -24,7 +24,7 @@ export default function Header() {
 
     return (
         <>
-            <header className="relative w-full z-50">
+            <header className="fixed w-full z-50">
                 {/* Контейнер с анимацией (дневная или ночная) */}
                 <div className={`absolute top-0 left-0 w-full h-full overflow-hidden ${
                     isDarkMode ? 'night-gradient' : 'sky-gradient'

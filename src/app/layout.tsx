@@ -5,7 +5,6 @@ import "./globals.css";
 import React from "react";
 import Footer from "./Footer";
 import Header from "./Header";
-import ThemeProvider from "./ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

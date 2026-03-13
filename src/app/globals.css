@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: linear-gradient(145deg, #70c1ff 0%, #b1e1ff 50%, #d4eafe 100%);
+  --foreground: linear-gradient(145deg, #70c1ff 0%, #b1e1ff 50%, #d4eafe 100%);
   --header-bg: #0891b2;
   --header-text: #ffffff;
   --footer-bg: #ffffff;
@@ -43,6 +43,7 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: linear-gradient(145deg, #70c1ff 0%, #b1e1ff 50%, #d4eafe 100%);
   /* background-repeat: no-repeat;
   background-position: center top;
   background-attachment: scroll;

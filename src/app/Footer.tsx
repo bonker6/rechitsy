@@ -1,9 +1,10 @@
 "use client";
-import React from "react";
+import {useState, useEffect} from "react";
+import '../css/footer.css'
 
 export default function Footer() {
-  const [weather, setWeather] = React.useState<{ temp: number; desc: string } | null>(null);
-  React.useEffect(() => {
+  const [weather, setWeather] = useState<{ temp: number; desc: string } | null>(null);
+  useEffect(() => {
     fetch(
       "https://api.open-meteo.com/v1/forecast?latitude=56.7094&longitude=36.7806&current_weather=true&timezone=Europe%2FMoscow"
     )
@@ -27,8 +28,23 @@ export default function Footer() {
       });
   }, []);
 
+
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  
+      // Проверяем системные настройки темы
+    useEffect(() => {
+      const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      setIsDarkMode(darkModeMediaQuery.matches);
+  
+      const handler = (e: MediaQueryListEvent) => setIsDarkMode(e.matches);
+      darkModeMediaQuery.addEventListener('change', handler);
+      
+      return () => darkModeMediaQuery.removeEventListener('change', handler);
+  }, []);
   return (
-    <footer className="fixed bottom-0 left-0 w-full z-50 dark-footer border-t shadow-inner">
+    <footer className={`fixed bottom-0 left-0 w-full z-50 dark-footer shadow-inner ${
+                    isDarkMode ? 'night-gradient-foot' : 'sky-gradient-foot'
+                }`}>
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between py-4 px-4">
         <div className="flex-1 flex justify-center">
           <a
