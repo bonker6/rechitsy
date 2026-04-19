@@ -1,28 +1,23 @@
+# Используем 20-ю версию (LTS)
+FROM node:20-alpine
 
-FROM node:18-alpine AS deps
 WORKDIR /app
+
+# Копируем только файлы зависимостей
 COPY package*.json ./
-RUN npm ci
 
+# Устанавливаем зависимости с нуля
+RUN npm install
 
-FROM node:18-alpine AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+# Копируем всё остальное
 COPY . .
-RUN npm run build
 
+# Отключаем телеметрию и запускаем билд
+ENV NEXT_TELEMETRY_DISABLED 1
 
-FROM node:18-alpine AS runner
-WORKDIR /app
-ENV NODE_ENV=production
+RUN npx next build --no-lint
 
-
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
 
 EXPOSE 3000
-ENV PORT=3000
 
-# Запуск через сгенерированный сервером файл
-CMD ["node", "server.js"]
+CMD ["npm", "start"]

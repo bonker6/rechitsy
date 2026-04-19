@@ -1,6 +1,6 @@
 "use client";
 import {useState, useEffect} from "react";
-import '../css/footer.css'
+import '@/css/footer.css';
 
 export default function Footer() {
   const [weather, setWeather] = useState<{ temp: number; desc: string } | null>(null);
@@ -31,7 +31,6 @@ export default function Footer() {
 
   const [isDarkMode, setIsDarkMode] = useState(false);
   
-      // Проверяем системные настройки темы
     useEffect(() => {
       const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
       setIsDarkMode(darkModeMediaQuery.matches);
@@ -69,12 +68,10 @@ export default function Footer() {
             className="mx-4 group flex md:flex-row"
             aria-label="ВКонтакте"
           >
-            <svg className="w-6 h-6 text-[#0077FF] hover:opacity-80 transition-opacity" 
-                viewBox="0 0 24 24" 
-                fill="currentColor" 
-                xmlns="http://www.w3.org/2000/svg">
-                <path d="M23.45 5.94c.35-1.16 0-2.01-1.66-2.01h-5.48c-1.4 0-2.05.74-2.4 1.57 0 0-2.79 6.81-6.75 11.23-.31.31-.45.41-.62.41-.09 0-.21-.1-.21-.4V5.93c0-1.4-.4-2.01-1.57-2.01H1.14C.26 3.92 0 4.58 0 5.25c0 1.33 1.98 1.63 2.19 5.34V18.1c0 1.83-.34 2.1-.98 2.1h-1.6c-.63 0-.84.28-.84.71 0 .6.82 2.5 3.91 2.5 3.2 0 5.93-1.66 5.93-1.66s3.04-1.63 4.39-3.26c.46-.57.65-.82.88-.82.16 0 .3.1.58.4 0 0 2.58 3.6 5.16 5.12 1.93 1.13 3.4.88 3.92.88h5.48c1.55 0 2.33-.78 1.87-2.31-.49-1.53-2.25-3.76-4.59-6.41-.33-.37-.47-.53-.13-1.01.03-.04 3.12-4.5 3.43-5.9z"/>
-            </svg>
+          <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#24A1DE] hover:text-sky-600 transition-colors">
+            <rect width="48" height="48" rx="10" fill="#0077FF"/>
+            <path d="M24.085 32.355C15.013 32.355 9.852 26.136 9.646 16H14.808C14.954 23.334 18.232 26.438 20.613 27.035V16H25.566V22.257C27.947 21.998 30.435 19.261 31.31 16H36.263C35.485 19.888 32.518 22.855 30.286 24.133C32.518 25.171 35.588 27.525 36.8 31.355H31.536C30.551 28.324 28.063 26.25 25.566 25.991V31.355C25.566 31.97 24.73 32.355 24.085 32.355Z" fill="white"/>
+          </svg>
             <h3>ВКонтакте</h3>
           </a>
         </div>

@@ -1,45 +1,38 @@
 "use client";
-import axios from "axios";
 import { useState, useEffect } from "react";
 import type { newsItem } from "@/types/newsType";
+import { signIn, useSession, SessionProvider, signOut } from "next-auth/react";
+import { useApi } from "@/hooks/useApi"
 
 export default function AdminPage() {
-  const [authorized, setAuthorized] = useState(false);
+  const { data: session, status } = useSession()
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const api = useApi()
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const isAuth = localStorage.getItem("admin_auth") === "1";
-      setAuthorized(isAuth);
-    }
-  }, []);
+const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
+  
+  const result = await signIn("credentials", {
+    login: login,
+    password: password,
+    redirect: false,
+  });
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    axios
-      .post(
-        "http://localhost:8080/auth/",
-        { login, password }
-      )
-      .then(
-       () => (
-          setAuthorized(true),
-          setError("")
-        )
-      )
-      .catch(() => setError("Неверный логин или пароль"));
-  };
+  if (result?.error) {
+    setError("Неверный логин или пароль");
+  } else {
+    window.location.href = "/admin"; 
+  }
+};
 
-  const handleLogout = () => {
-    setAuthorized(false);
-    setLogin("");
-    setPassword("");
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("admin_auth");
-    }
+  const  handleLogout = async() => {
+    await signOut({ 
+      callbackUrl: "/", 
+      redirect: true
+    });
   };
 
   // --- Новости ---
@@ -48,30 +41,36 @@ export default function AdminPage() {
   const [editId, setEditId] = useState<number | null>(null);
 
   // Загрузка новостей из БД при инициализации
-  useEffect(() => {
-    fetch("http://localhost:8080/news/", { method: "GET" })
-      .then((res) => {
-        if (!res.ok) throw new Error("Ошибка загрузки");
-        return res.json();
-      })
-      .then(setNews)
-      .catch(() => setError("Не удалось загрузить новости"))
-      .finally(() => setLoading(false));
-  }, []);
+useEffect(() => {
+  api.get("http://localhost/api/news")
+    .then((res) => {
+
+      const data = Array.isArray(res.data) ? res.data : [];
+      setNews(data);
+    })
+    .catch((err) => {
+      console.error(err);
+      setError("Не удалось загрузить новости");
+      setNews([]); 
+    })
+    .finally(() => {
+      setLoading(false);
+    });
+}, [api]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.title || !form.date || !form.description) return;
     if (editId) {
-      axios.put("http://localhost:8080/news/", { ...form, id: editId });
-      setNews(news.map(n => n.id === editId ? { ...n, ...form } : n));
+      await api.put("http://localhost/api/news/", { ...form, id: editId});
+      setNews(news.map(n => n.id === editId ? { ...n, ...form,} : n));
       setEditId(null);
     } else { // отпправка формы новостей в БД
-      axios.post("http://localhost:8080/news/",
+      await api.post("http://localhost/api/news/",
         { ...form}
       )
       setNews([
@@ -91,19 +90,18 @@ export default function AdminPage() {
     }
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = async (id: number) => {
     setNews(news.filter(n => n.id !== id));
-    if (editId === id) {
-      axios.delete("http://localhost:8080/news/", {
-        data: { id }
-      });
-      setEditId(null);
-      setForm({ title: "", date: "", description: "" });
-    }
+    await api.delete("http://localhost/api/news/", {
+      data: { id }
+    });
+    setEditId(null);
+    setForm({ title: "", date: "", description: "" });
   };
 
-  if (!authorized) {
+  if (!session) {
     return (
+    <SessionProvider>
       <main className="flex flex-col items-center justify-center min-h-[60vh]">
         <h1 className="text-3xl font-bold mb-6 text-cyan-700">Вход в админку</h1>
         <form onSubmit={handleLogin} className="bg-cyan-50 rounded-xl p-6 shadow flex flex-col gap-4 w-full max-w-sm">
@@ -121,10 +119,12 @@ export default function AdminPage() {
             onChange={e => setPassword(e.target.value)}
             className="border border-cyan-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition"
           />
+          {status == "loading" ? <div className="text-blue-600 text-sm">Проверка доступа...</div> : null}
           {error && <div className="text-red-600 text-sm">{error}</div>}
           <button type="submit" className="bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-700 transition">Войти</button>
         </form>
       </main>
+      </SessionProvider>
     );
   }
 
@@ -132,7 +132,7 @@ export default function AdminPage() {
     <main>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-3xl font-bold text-cyan-700">Админка: Новости</h1>
-        <button onClick={handleLogout} className="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition">Выйти</button>
+        <button onClick={handleLogout} className="bg-gray-200 text-red-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition">Выйти</button>
       </div>
       <form onSubmit={handleSubmit} className="bg-cyan-50 rounded-xl p-6 mb-8 shadow flex flex-col gap-4 max-w-xl">
         <input
@@ -173,7 +173,7 @@ export default function AdminPage() {
         {loading && <div className="text-cyan-600">Загрузка...</div>}
         {error && <div className="text-red-600">{error}</div>}
         {!loading && !error && (
-          news.length === 0 ? (
+          news?.length === undefined ? (
             <div className="text-cyan-600">Новостей нет.</div>
           ) : (
             <ul className="space-y-6">
@@ -182,7 +182,7 @@ export default function AdminPage() {
                   <div>
                     <div className="text-lg font-bold text-cyan-700">{n.title}</div>
                     <div className="text-cyan-500 text-sm">{n.date}</div>
-                    <div className="text-gray-700 mt-2">{n.description}</div>
+                    <div className="text-gray-700 mt-2 break-all">{n.description}</div>
                   </div>
                   <div className="flex gap-2 mt-2 md:mt-0">
                     <button onClick={() => handleEdit(n.id)} className="bg-cyan-100 text-cyan-700 px-3 py-1 rounded-lg hover:bg-cyan-200 transition">Редактировать</button>

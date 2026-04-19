@@ -2,10 +2,10 @@
                     background: linear-gradient(145deg, #70c1ff 0%, #b1e1ff 50%, #d4eafe 100%);
                     border-top-left-radius: 50px 30px;
                     border-top-right-radius: 50px 30px;
+        
                 }
                 .night-gradient-foot {
                     background: linear-gradient(145deg, #0b1120 0%, #1a1f35 50%, #2d2a5c 100%);
                     border-top-left-radius: 50px 30px;
                     border-top-right-radius: 50px 30px;
-                    pointer-events: none;
                 }

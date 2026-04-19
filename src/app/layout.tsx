@@ -5,6 +5,7 @@ import "./globals.css";
 import React from "react";
 import Footer from "./Footer";
 import Header from "./Header";
+import { Providers } from "./providers"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +35,9 @@ export default function RootLayout({
 
         <Header />
         <main className="container mx-auto px-4 py-4 md:py-8 flex-1 pt-20 md:pt-28 pb-32">
-          {children}
+          <Providers>
+              {children}
+          </Providers>
         </main>
         <Footer />
       </body>

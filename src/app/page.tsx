@@ -1,4 +1,5 @@
 "use client";
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 
 export interface NewsItem {
@@ -15,17 +16,22 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
 
-  useEffect(() => {
-    // Запрашиваем маршрут API без .ts
-    fetch("http://localhost:8080/news/", { method: "GET" })
-      .then((res) => {
-        if (!res.ok) throw new Error("Ошибка загрузки");
-        return res.json() as Promise<NewsItem[]>;
-      })
-      .then((data) => setNews(data))
-      .catch(() => setError("Не удалось загрузить новости"))
-      .finally(() => setLoading(false));
-  }, []);
+useEffect(() => {
+  axios.get("http://localhost/api/news")
+    .then((res) => {
+
+      const data = Array.isArray(res.data) ? res.data : [];
+      setNews(data);
+    })
+    .catch((err) => {
+      console.error(err);
+      setError("Не удалось загрузить новости");
+      setNews([]); 
+    })
+    .finally(() => {
+      setLoading(false);
+    });
+}, [axios]);
 
   const filteredNews = news.filter((item) => {
     const q = search.toLowerCase();
@@ -81,9 +87,13 @@ export default function Home() {
             <ul className="space-y-6">
               {filteredNews.map((item) => (
                 <li key={item.id} className="bg-white rounded-xl shadow p-6 border-l-4 border-cyan-400">
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                    <span className="text-lg font-bold text-cyan-700">{item.title}</span>
-                    <span className="text-cyan-500 text-sm mt-2 md:mt-0">{item.date}</span>
+                  <div className="flex flex-col mb-2">
+                    <span className="text-lg font-bold text-cyan-700 leading-tight">
+                      {item.title}
+                    </span>
+                    <span className="text-cyan-500 text-sm mt-1">
+                      {item.date}
+                    </span>
                   </div>
                   <p className="text-gray-700">{item.description}</p>
                 </li>
