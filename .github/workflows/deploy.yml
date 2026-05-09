@@ -8,7 +8,7 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
-      # 1. Забираем код из репозитория
+      # 1. Забираем код из репозитори
       - name: Checkout code
         uses: actions/checkout@v4
 
