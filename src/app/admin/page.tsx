@@ -66,11 +66,11 @@ useEffect(() => {
     e.preventDefault();
     if (!form.title || !form.date || !form.description) return;
     if (editId) {
-      await api.put("http://localhost/api/news/", { ...form, id: editId});
+      await api.put("http://localhost/api/news", { ...form, id: editId});
       setNews(news.map(n => n.id === editId ? { ...n, ...form,} : n));
       setEditId(null);
     } else { // отпправка формы новостей в БД
-      await api.post("http://localhost/api/news/",
+      await api.post("http://localhost/api/news",
         { ...form}
       )
       setNews([
@@ -92,7 +92,7 @@ useEffect(() => {
 
   const handleDelete = async (id: number) => {
     setNews(news.filter(n => n.id !== id));
-    await api.delete("http://localhost/api/news/", {
+    await api.delete("http://localhost/api/news", {
       data: { id }
     });
     setEditId(null);
