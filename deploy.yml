@@ -1,0 +1,65 @@
+---
+- name: Подключаем стек мониторинга к существующему проекту prjct
+  hosts: localhost
+  connection: local
+  vars:
+    existing_network: "prjct_default" 
+
+  tasks:
+    # 1. NGINX EXPORTER
+    - name: Запуск Nginx Exporter
+      community.docker.docker_container:
+        name: nginx-exporter
+        image: nginx/nginx-prometheus-exporter:1.1.0
+        networks: [{ name: "{{ existing_network }}" }]
+        ports:
+          - "9113:9113"
+
+        command: "-nginx.scrape-uri=http://nginx-1:80/nginx_status"
+
+    # 2. PROMETHEUS
+    - name: Запуск Prometheus
+      community.docker.docker_container:
+        name: prometheus
+        image: prom/prometheus:v2.45.0
+        networks: [{ name: "{{ existing_network }}" }]
+        ports:
+          - "9090:9090"
+        volumes:
+          - "{{ ansible_facts['env']['PWD'] }}/prometheus.yml:/etc/prometheus/prometheus.yml"
+
+    # 3. LOKI
+    - name: Запуск Grafana Loki
+      community.docker.docker_container:
+        name: loki
+        image: grafana/loki:2.9.0
+        networks: [{ name: "{{ existing_network }}" }]
+        ports:
+          - "3100:3100"
+        command: "-config.file=/etc/loki/local-config.yaml"
+
+    # 4. GRAFANA
+    - name: Запуск Grafana
+      community.docker.docker_container:
+        name: grafana
+        image: grafana/grafana:10.2.0
+        networks: [{ name: "{{ existing_network }}" }]
+        ports:
+          - "3000:3000"
+        env:
+          GF_SECURITY_ADMIN_PASSWORD: "admin"
+
+    # 5. PROMTAIL 
+    - name: Запуск Promtail
+      community.docker.docker_container:
+        name: promtail
+        image: grafana/promtail:2.9.0
+        user: "root"
+        networks: [{ name: "{{ existing_network }}" }]
+
+        volumes:
+          - "/var/run/docker.sock:/var/run/docker.sock"
+          - "{{ ansible_facts['env']['PWD'] }}/promtail.yml:/etc/promtail/promtail.yml"
+
+        command: "-config.file=/etc/promtail/promtail.yml"
+
