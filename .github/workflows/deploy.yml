@@ -8,27 +8,35 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
-      # 1. Забираем код из репозитори
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Логинимся в Docker Hub (используем секреты репозитория)
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # 3. Сборка и отправка образа
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: . # Собираем из корня репозитория
-          file: ./Dockerfile # Путь к твоему Dockerfile
+          context: .
+          file: ./Dockerfile
           push: true
-          # Замени 'my-app-frontend' на свое название
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/my-app-frontend:latest
           
-      # 4. Опционально: Очистка старых образов в GitHub Runner (чтобы не забивать место)
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+
+  deploy:
+    name: Continuous Deployment (Local WSL)
+    runs-on: self-hosted
+    needs: build-and-push 
+
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Execute Ansible Playbook
+        run: ansible-playbook deploy.yml
+
