@@ -45,7 +45,7 @@ The core philosophy of this project is to build an independent, reproducible, an
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com
+git clone https://github.com/bonker6/rechitsy
 cd rechitsy
 ```
 
