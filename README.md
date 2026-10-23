@@ -36,24 +36,3 @@ The core philosophy of this project is to build an independent, reproducible, an
 *   **Centralized Logging:** Integrated Promtail to actively parse application runtime data and stream stdout logs into Grafana Loki tables for full-stack deep debugging.
 
 ---
-
-## 🚀 Local Deployment & Setup
-
-### Prerequisites
-*   Docker & Docker Compose installed
-*   Node.js 20+ (for local development)
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/bonker6/rechitsy
-cd rechitsy
-```
-
-### 2. Run Infrastructure locally (including monitoring stand)
-```bash
-docker-compose up -d --build
-```
-*Access local web application at `http://localhost:3000`*
-
----
-
