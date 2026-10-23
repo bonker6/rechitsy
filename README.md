@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌐 Rechitsy - Community Portal & Infrastructure Platform
 
-## Getting Started
+A high-performance web platform built with **Next.js 15 (App Router)** and **TypeScript**, featuring an enterprise-grade production-ready infrastructure ecosystem. 
 
-First, run the development server:
+This repository demonstrates the implementation of modern **DevOps methodologies**, focusing on secure containerization, automated **CI/CD pipelines**, Configuration as Code (**Ansible**), and comprehensive **Observability (Prometheus + Grafana + Loki)**.
 
+---
+
+## 🏗 Infrastructure Architecture & Tech Stack
+
+The core philosophy of this project is to build an independent, reproducible, and highly observable environment mimicking a production data center.
+
+*   **Frontend & Logic:** Next.js (SSR, Server Components), TypeScript, Tailwind CSS.
+*   **Containerization:** Docker & Docker Compose (Multi-stage builds, isolated networks, non-root execution security).
+*   **Web Server / Edge:** Nginx (Reverse Proxy, CORS handling, rewrite rules).
+*   **CI/CD Pipeline:** GitHub Actions (Automated building, remote environment integration).
+*   **Configuration Management (IaC):** Ansible (Automated provisioning and continuous deployment).
+*   **Observability (SRE):** Prometheus (Metrics gathering), Promtail (Log shipping), Grafana (Dashboard visualization).
+
+---
+
+## 🛠 DevOps & Engineering Highlights
+
+### 1. Optimized & Secure Containerization (`Dockerfile`)
+*   **Multi-Stage Build Pipeline:** Separate stages for dependency resolution (`npm ci`), building, and production runtime to keep the final image minimal.
+*   **Layer Caching:** Tailored Docker context copying to maximize layer caching and speed up deployment steps.
+*   **Non-Root Execution Security:** Implemented custom system user/group (`nextjs:nodejs`) inside Alpine Linux. The application avoids running under `root` privileges to mitigate security vulnerabilities.
+
+### 2. Enterprise-Grade CI/CD & Automation (`.github/workflows/`)
+*   **Advanced Caching:** Leverages GitHub Actions cache (`type=gha`) for Docker layers, cutting rebuild times drastically.
+*   **Immutability & Tagging:** Every main branch push auto-generates a unique image tag based on the target `git commit SHA` along with the `:latest` tag.
+*   **Ansible Continuous Deployment:** Integrated with a local `self-hosted` runner that securely triggers Ansible playbooks (`deploy.yml`) to orchestrate container lifecycle updates seamlessly.
+
+### 3. Observability & Monitoring Stand (Prometheus / Promtail)
+*   **Infrastructure Metrics:** Prometheus scans server health and performance thresholds.
+*   **Centralized Logging:** Integrated Promtail to actively parse application runtime data and stream stdout logs into Grafana Loki tables for full-stack deep debugging.
+
+---
+
+## 🚀 Local Deployment & Setup
+
+### Prerequisites
+*   Docker & Docker Compose installed
+*   Node.js 20+ (for local development)
+
+### 1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com
+cd rechitsy
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Run Infrastructure locally (including monitoring stand)
+```bash
+docker-compose up -d --build
+```
+*Access local web application at `http://localhost:3000`*
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
